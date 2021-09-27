@@ -57,3 +57,20 @@ insert into relatorio_anual(ovos_anual,temp_anual) values
 (250000,'25');
 
 select * from relatorio_mensal;
+
+-- ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+create table login (
+idLogin int primary key auto_increment,
+usuario varchar(45),
+email varchar (45),
+senha char (8)
+) ;
+
+
+-- ----------------------------------------------------------------------------------------------------------------------------------------------------
+create table registro (
+idRegistro int primary key auto_increment,
+dia datetime default current_timestamp,
+temperaturas float
+);
