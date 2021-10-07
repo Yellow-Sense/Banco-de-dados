@@ -12,7 +12,7 @@ senha char (8) not null
 );
 
 insert into cliente values
-	(null,'Cleber Rosario','cleberson.granja@gmail.com','12345678912','12345678','Galinhas do Cleber','SP');
+	(null,'Cleber Rosario','cleberson.granja@gmail.com','12345678912','12345678');
 
 select * from cliente;
 
