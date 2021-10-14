@@ -1,99 +1,145 @@
-Create Database Yellow_Sensor; 
 
-use Yellow_Sensor;
--- -------------------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE DATABASE Yellow_Sensor ;
+USE Yellow_Sensor ;
 
-create table cliente (
-idCliente int primary key auto_increment,
-nome_usuario varchar (50), 
-email_usuario varchar (70) not null,
-telefone varchar (20), 
-senha char (8) not null
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Table `cliente`
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE cliente (
+  idCliente INT AUTO_INCREMENT PRIMARY KEY,
+  nome_usuario VARCHAR(50) ,
+  email_usuario VARCHAR(70) ,
+  telefone VARCHAR(20),
+  senha CHAR(8)
 );
 
-insert into cliente values
-	(null,'Cleber Rosario','cleberson.granja@gmail.com','12345678912','12345678');
+insert into cliente(nome_usuario,email_usuario,telefone,senha) values
+('Cleber Rosario','cleberRos@gmail.com','1196732-2100',12345678),
+('Kauã de Aliveira ','K.oliveira@gmail.com','1195673-2340',87654321),
+('Matheus Antonio','M.antonio@gmail.com','1196432-9123',88888888),
+('Leonardo da Silva','Leonardo.S@gmail.com','1196521-9321',98989898);
 
-select * from cliente;
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Tabela administrador`
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE administrador (
+  idLogin INT AUTO_INCREMENT PRIMARY KEY ,
+  usuario VARCHAR(45) ,
+  email VARCHAR(45) ,
+  senha CHAR(8) 
+  );
+
+insert into administrador (usuario,email,senha) values
+('João Noleto','j.noleto@gmail.com',12345678),
+('Lucas Soares','l.soares@gmail.com',12345679),
+('Leandro Cotrim','l.cotrim@gmail.com',12345671),
+('Matheus Carvalho','m.carvalho@gmail.com',12345672),
+('Felipe Andrade','f.andrade@gmail.com',12345673);
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Table `Yellow_Sensor`.`sensor`
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE sensor (
+  idArea INT AUTO_INCREMENT PRIMARY KEY ,
+  area_granja CHAR(1),
+  status_sensor VARCHAR(20),
+  CONSTRAINT check_status CHECK(status_sensor='funcionando' or status_sensor='manuntenção')
+)
+AUTO_INCREMENT = 100000;
+
+insert into sensor(area_granja,status_sensor) values
+('A','funcionando'),
+('B','funcionando'),
+('C','funcionando'),
+('D','funcionando'),
+('A','funcionando'),
+('B','funcionando'),
+('A','funcionando'),
+('B','funcionando'),
+('C','funcionando'),
+('D','funcionando'),
+('A','funcionando'),
+('B','funcionando'),
+('A','funcionando'),
+('B','funcionando'),
+('C','funcionando'),
+('D','funcionando'),
+('A','funcionando');
+
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Table `granja`
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE granja (
+  idGranja INT AUTO_INCREMENT PRIMARY KEY,
+  nome_granja VARCHAR(50),
+  estado CHAR(2),
+  cnpj CHAR(14),
+  cep CHAR(8),
+  numero_propiedade VARCHAR(4),
+  fkAreaSensor INT,
+   FOREIGN KEY (fkAreaSensor)
+    REFERENCES sensor (idArea),
+  fkCliente INT,
+    FOREIGN KEY (fkCliente)
+    REFERENCES cliente (idCliente)
+    );
 
 
--- -------------------------------------------------------------------------------------------------------------------------------------------------------------
-create table login (
-idLogin int primary key auto_increment,
-usuario varchar(45),
-email varchar (45),
-senha char (8)
-) ;
 
--- -------------------------------------------------------------------------------------------------------------------------------------------------------------
+insert into granja(nome_granja,estado,cnpj,cep,numero_propiedade,fkAreaSensor,fkCliente) values
+('Galinha Feliz','SP',12345678912345,12345678,0345,100000,1),
+('Branco e Amarelo','MG',12345678942345,12345671,0234,100001,2),
+('Chiken egg','SP',1234567893456,12345672,0532,100002,3),
+('Chocadeira','RS',1234567894567,12345673,0242,100003,4);
 
-create table granja (
-idGranja int primary key auto_increment,
-nome_granja varchar (50),
-estado char (2),
-cnpj char (14),
-cep char (8),
-numero_propiedade  varchar (4),
-fkCliente int,
-foreign key (fkCliente) references cliente(idCliente)
-);
+-- --------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Table `registro`
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
--- -------------------------------------------------------------------------------------------------------------------------------------------------------------
-create table sensor(
-	idArea int primary key auto_increment,
-    area_granja char(1),
-    temperatura float,
-    alerta varchar(20), 
-    constraint alerta_check check (alerta = 'resfriar' or alerta = 'esquentar' or alerta ='ok' or alerta = 'erro')
-)auto_increment = 100000;
-
-insert into sensor(area_granja,temperatura,alerta) values
-('A','24.5','ok'),
-('B','26.5','resfriar'),
-('B','18.5','esquentar');
+CREATE TABLE registro (
+  idRegistro INT PRIMARY KEY  AUTO_INCREMENT,
+  dia DATETIME  DEFAULT CURRENT_TIMESTAMP,
+  temperaturas FLOAT ,
+  fkAreaSensor2 INT ,
+   FOREIGN KEY (fkAreaSensor2)
+    REFERENCES sensor (idArea),
+  alerta VARCHAR(45) constraint check_alerta check(alerta='ativado' or alerta='desativado'),
+  fkGranja INT ,
+    FOREIGN KEY (fkGranja)
+    REFERENCES granja (idGranja)
+    );
 
 
-select * from sensor;
+insert into registro (temperaturas,fkAreaSensor2,alerta,fkgranja) values
+(25.5,100000,'desativado',1),
+(25.5,100001,'desativado',1),
+(25.9,100003,'desativado',1),
+(28.5,100004,'ativado',1),
+(22.5,100005,'desativado',2),
+(22.4,100006,'desativado',2),
+(23.5,100007,'desativado',2),
+(17.5,100008,'ativado',2),
+(25.5,100009,'desativado',3),
+(25.5,100010,'desativado',3),
+(25.9,100011,'desativado',3),
+(28.5,100012,'ativado',3),
+(18.5,100013,'desativado',4),
+(18.3,100014,'desativado',4),
+(17.5,100015,'ativado',4),
+(16.0,100016,'ativado',4);
+	
+select * from  cliente;
+select * from  sensor;
+select * from  granja;
+select * from  registro;
 
--- -------------------------------------------------------------------------------------------------------------------------------------------------------------
-create table relatorio_mensal(
-idMensal int primary key auto_increment,
-ovos_mensal int,
-temp_mensal float,
-fkGranja int,
-foreign key (fkGranja) references granja(idGranja)
-)auto_increment = 10000;
+select * from registro join sensor on fkAreaSensor2 = idArea 
+where fkGranja = 1;
 
+select * from registro join sensor on fkAreaSensor2 = idArea 
+where fkGranja = 2;
 
-insert into relatorio_mensal(ovos_mensal,temp_mensal) values 
-(2500,'23.5');
+select * from registro join sensor on fkAreaSensor2 = idArea 
+where fkGranja = 3;
 
-select * from relatorio_mensal;
--- -------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-create table relatorio_anual(
-idAnual int primary key auto_increment,
-ovos_anual int,
-temp_anual float,
-fkGranja int,
-foreign key (fkGranja) references granja(idGranja)
-)auto_increment = 1000;
-
-insert into relatorio_anual(ovos_anual,temp_anual) values 
-(250000,'25');
-
-select * from relatorio_mensal;
-
--- ----------------------------------------------------------------------------------------------------------------------------------------------------
-create table registro (
-idRegistro int primary key auto_increment,
-dia datetime default current_timestamp,
-temperaturas float,
-fkGranja int,
-foreign key (fkGranja) references granja(idGranja)
-);
-
-desc registro;
--- ----------------------------------------------------------------------------------------------------------------------------------------------------
-
+select * from registro join sensor on fkAreaSensor2 = idArea 
+where fkGranja = 4;
