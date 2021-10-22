@@ -1,4 +1,3 @@
-
 CREATE DATABASE Yellow_Sensor ;
 USE Yellow_Sensor ;
 
@@ -74,6 +73,8 @@ CREATE TABLE granja (
   estado CHAR(2),
   cnpj CHAR(14),
   cep CHAR(8),
+  rua VARCHAR (45),
+  bairro VARCHAR (45),
   numero_propiedade VARCHAR(4),
   fkAreaSensor INT,
    FOREIGN KEY (fkAreaSensor)
@@ -84,12 +85,11 @@ CREATE TABLE granja (
     );
 
 
-
-insert into granja(nome_granja,estado,cnpj,cep,numero_propiedade,fkAreaSensor,fkCliente) values
-('Galinha Feliz','SP',12345678912345,12345678,0345,100000,1),
-('Branco e Amarelo','MG',12345678942345,12345671,0234,100001,2),
-('Chiken egg','SP',1234567893456,12345672,0532,100002,3),
-('Chocadeira','RS',1234567894567,12345673,0242,100003,4);
+insert into granja(nome_granja,estado,cnpj,cep,rua,bairro,numero_propiedade,fkAreaSensor,fkCliente) values
+('Galinha Feliz','SP',12345678912345,12345678,'Rua das laranjeiras','Rosas Claras',0345,100000,1),
+('Branco e Amarelo','MG',12345678942345,12345671,'Rua General Ozorio','Rio das Ostras',0234,100001,2),
+('Chiken egg','SP',1234567893456,12345672,'Rua Marcos Claricio','Rio Claro',0532,100002,3),
+('Chocadeira','RS',1234567894567,12345673,'Rua Santa Luzia','Folha Seca',0242,100003,4);
 
 -- --------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Table `registro`
