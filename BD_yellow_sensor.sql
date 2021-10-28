@@ -78,7 +78,7 @@ CREATE TABLE granja (
   numero_propiedade VARCHAR(4),
   fkAreaSensor INT,
    FOREIGN KEY (fkAreaSensor)
-    REFERENCES sensor (idArea),
+    REFERENCES sensor (idSensor),
   fkCliente INT,
     FOREIGN KEY (fkCliente)
     REFERENCES cliente (idCliente)
@@ -101,7 +101,7 @@ CREATE TABLE registro (
   temperaturas FLOAT ,
   fkAreaSensor2 INT ,
    FOREIGN KEY (fkAreaSensor2)
-    REFERENCES sensor (idArea),
+    REFERENCES sensor (idSensor),
   alerta VARCHAR(45) constraint check_alerta check(alerta='ativado' or alerta='desativado'),
   fkGranja INT ,
     FOREIGN KEY (fkGranja)
@@ -132,14 +132,75 @@ select * from  sensor;
 select * from  granja;
 select * from  registro;
 
-select * from registro join sensor on fkAreaSensor2 = idArea 
-where fkGranja = 1;
+-- 									MOSTRANDO TODOS OS DADOS DA GRANJA 1
+select * from registro join sensor 
+	on fkAreaSensor2 = idSensor 
+		where fkGranja = 1;
 
-select * from registro join sensor on fkAreaSensor2 = idArea 
-where fkGranja = 2;
+-- 								Mostrando o nome da granja 1 e seus registros 
+select  nome_granja, r.*
+	from granja join registro as r 
+		on idGranja = fkGranja where fkgranja = 1;
+							
+--                				Nome e media das temperaturas granja 1
+select nome_granja, avg(round(t.temperaturas)) 
+	as 'Média Temperatura Mensal' from granja  
+		join registro as t 
+			on idGranja = fkGranja where fkgranja = 1;
+            
+            
+-- ---------------------------------------------------- 2   ---------------------------------------------------------------
 
-select * from registro join sensor on fkAreaSensor2 = idArea 
-where fkGranja = 3;
+-- 									MOSTRANDO TODOS OS DADOS DA GRANJA 2
+select * from registro join sensor 	
+	on fkAreaSensor2 = idSensor 
+		where fkGranja = 2;
 
-select * from registro join sensor on fkAreaSensor2 = idArea 
-where fkGranja = 4;
+-- 								Mostrando o nome da granja 2 e seus registros 
+select  nome_granja, r.*
+	from granja  join registro as r 
+		on idGranja = fkGranja where fkgranja = 2;
+        
+--                				Nome e media das temperaturas granja 2
+select nome_granja, avg(round(t.temperaturas)) 
+	as 'Média Temperatura Mensal' from granja  
+		join registro as t 
+			on idGranja = fkGranja where fkgranja = 2;
+            
+            
+-- --------------------------------------------------     3       -----------------------------------------------------------------
+
+-- 									MOSTRANDO TODOS OS DADOS DA GRANJA 3
+select * from registro join sensor 
+	on fkAreaSensor2 = idSensor
+		where fkGranja = 3;
+-- 								Mostrando o nome da granja 3 e seus registros 
+select  nome_granja, r.*
+	from granja  join registro as r 
+		on idGranja = fkGranja where fkgranja = 3;
+        
+        --                				Nome e media das temperaturas granja 3
+select nome_granja, avg(round(t.temperaturas)) 
+	as 'Média Temperatura Mensal' from granja  
+		join registro as t 
+			on idGranja = fkGranja where fkgranja = 3;
+            
+            
+-- ----------------------------------------------------   4   ---------------------------------------------------------------
+
+-- 									MOSTRANDO TODOS OS DADOS DA GRANJA 4
+select * from registro join sensor
+	on fkAreaSensor2 = idSensor join granja
+		on idGranja = fkgranja 
+			where fkGranja = 4;
+-- 								Mostrando o nome da granja 4 e seus registros 
+select  nome_granja, r.*
+	from granja  join registro as r 
+		on idGranja = fkGranja where fkgranja = 4;
+        
+        --                				Nome e media das temperaturas granja 4
+select nome_granja, avg(round(t.temperaturas)) 
+	as 'Média Temperatura Mensal' from granja  
+		join registro as t 
+			on idGranja = fkGranja where fkgranja = 4;
+
