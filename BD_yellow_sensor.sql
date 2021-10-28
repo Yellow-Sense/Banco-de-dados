@@ -38,7 +38,7 @@ insert into administrador (usuario,email,senha) values
 -- Table `Yellow_Sensor`.`sensor`
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE sensor (
-  idArea INT AUTO_INCREMENT PRIMARY KEY ,
+  idSensor INT AUTO_INCREMENT PRIMARY KEY ,
   area_granja CHAR(1),
   status_sensor VARCHAR(20),
   CONSTRAINT check_status CHECK(status_sensor='funcionando' or status_sensor='manuntenção')
