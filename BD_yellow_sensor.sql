@@ -34,7 +34,7 @@ CREATE TABLE granja (
   cnpj CHAR(14),
   cep CHAR(8),
   rua VARCHAR (45),
-  bairro VARCHAR (45),
+  telefone varchar(45),
   numero_propiedade VARCHAR(4),
   fkCliente INT,
     FOREIGN KEY (fkCliente)
