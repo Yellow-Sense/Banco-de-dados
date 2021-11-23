@@ -42,11 +42,6 @@ CREATE TABLE granja (
     );
 
 
-insert into granja(nome_granja,estado,cnpj,cep,rua,bairro,numero_propiedade,fkCliente) values
-('Galinha Feliz','SP',12345678912345,12345678,'Rua das laranjeiras','Rosas Claras',0345,6),
-('Branco e Amarelo','MG',12345678942345,12345671,'Rua General Ozorio','Rio das Ostras',0234,7),
-('Chiken egg','SP',1234567893456,12345672,'Rua Marcos Claricio','Rio Claro',0532,8),
-('Chocadeira','RS',1234567894567,12345673,'Rua Santa Luzia','Folha Seca',0242,9);
 SELECT * FROM granja;
 SELECT * FROM usuario;
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------
