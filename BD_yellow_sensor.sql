@@ -33,6 +33,41 @@ CREATE TABLE granja (
   estado CHAR(2),
   cnpj CHAR(14),
   cep CHAR(8),
+CREATE DATABASE Yellow_Sensor ;
+USE Yellow_Sensor ;
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Table `cliente`
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE usuario (
+  idUsuario INT AUTO_INCREMENT PRIMARY KEY,
+  nome_usuario VARCHAR(50) ,
+  email_usuario VARCHAR(70) ,
+  senha CHAR(8),
+  tipo VARCHAR(15) DEFAULT 'usuario'
+);
+
+insert into usuario(nome_usuario,email_usuario,senha,tipo) values
+('Leandro Cotrim', 'L.Cotrim@gmail.com',40028921,'admin'),
+('Matheus Araujo', 'M.Araujo@gmail.com',40028922,'admin'),
+('João Pedro', 'J.Pedro@gmail.com',40028923,'admin'),
+('Felipe Brito', 'F.Brito@gmail.com',40028924,'admin'),
+('Lucas Soares', 'L.Soares@gmail.com',40028925,'admin');
+
+INSERT INTO usuario(nome_usuario,email_usuario,senha) VALUES
+('Cleber Rosario','cleberRos@gmail.com',12345678),
+('Kauã de Aliveira ','K.oliveira@gmail.com',87654321),
+('Matheus Antonio','M.antonio@gmail.com',88888888),
+('Leonardo da Silva','Leonardo.S@gmail.com',98989898);
+
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Table `granja`
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE granja (
+  idGranja INT AUTO_INCREMENT PRIMARY KEY,
+  nome_granja VARCHAR(50),
+  estado CHAR(2),
+  cnpj CHAR(14),
+  cep CHAR(8),
   rua VARCHAR (45),
   telefone VARCHAR(20),
   numero_propiedade VARCHAR(4),
